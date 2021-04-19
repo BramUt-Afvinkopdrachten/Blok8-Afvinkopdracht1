@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Bram Utberg">
+    <title>Afvinkopdracht 1</title>
+</head>
+<body>
+    <form name="search_input" method="post">
+        <input type="text" name="search_term" value="{{ search_term }}">
+        <input type="submit">
+    </form>
+
+    {% for result in results %}
+        {% for sub_str in result -%}
+            {%- if sub_str == search_term -%}
+                <b>{{ sub_str }}</b>
+            {%- else -%}
+                {{ sub_str }}
+            {%- endif -%}
+        {%- endfor %}
+        <br>
+    {% endfor %}
+
+</body>
+</html>
