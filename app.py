@@ -15,7 +15,10 @@ def homepage():
     zoekterm.
     """
     if request.method == "POST":
+        # Kijkt of er een zoekterm is opgegeven.
         if search_term := request.form["search_term"]:
+            # Maakt een connectie met de ensembl database en zoekt in de
+            # gene table naar de zoekterm.
             with MySQLManager(db_info) as cursor:
                 cursor.execute(
                     f"select description "
@@ -23,6 +26,7 @@ def homepage():
                     f"where description like '%{search_term}%'")
                 results = cursor.fetchall()
 
+            # Splitst desciptions op de zoekterm.
             results = [re.split(f"({search_term})", result[0])
                        for result in results]
 
